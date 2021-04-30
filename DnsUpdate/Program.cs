@@ -99,7 +99,7 @@ switch (listResponse.StatusCode)
     case HttpStatusCode.Unauthorized:
         Console.Error.WriteLine("Authorization Error");
         writer = File.AppendText("error.log");
-        writer.Write(listResponse.Content.ReadAsStringAsync());
+        writer.Write(await listResponse.Content.ReadAsStringAsync());
         writer.Close();
         
         PrintDone(startTime);
@@ -107,7 +107,7 @@ switch (listResponse.StatusCode)
     default:
         Console.Error.WriteLine("Error fetching dns list");
         writer = File.AppendText("error.log");
-        writer.Write(listResponse.Content.ReadAsStringAsync());
+        writer.Write(await listResponse.Content.ReadAsStringAsync());
         writer.Close();
         
         PrintDone(startTime);
@@ -158,17 +158,11 @@ if (dnsList is not null)
             Console.Write("OK\n");
             continue;
         }
-        
-        /*
-        if (updateResponse.StatusCode == HttpStatusCode.MethodNotAllowed)
-        {
-            Console.WriteLine("Method not allowed");
-            continue;
-        }*/
 
         Console.Error.Write("Error updating");
         writer = File.AppendText("updateerror.log");
-        writer.Write(await updateResponse.Content.ReadAsStringAsync());
+        var err = await updateResponse.Content.ReadAsStringAsync();
+        writer.Write(err);
         writer.Close();
     }
 }
