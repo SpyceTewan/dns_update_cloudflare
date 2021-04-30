@@ -1,4 +1,4 @@
- */bin/
- */obj/
- */*.txt
- /.idea/
+*/bin/
+*/obj/
+*/*.txt
+/.idea/
