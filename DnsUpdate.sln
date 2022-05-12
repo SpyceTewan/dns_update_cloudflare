@@ -7,6 +7,8 @@ ProjectSection(SolutionItems) = preProject
 	.gitignore = .gitignore
 EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DnsUpdate.Test", "DnsUpdate.Test\DnsUpdate.Test.csproj", "{EB390C20-5186-4D08-AA61-24F2BA05D0E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,5 +19,9 @@ Global
 		{AD67F64B-3406-4FDC-B80B-D9A407283530}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD67F64B-3406-4FDC-B80B-D9A407283530}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD67F64B-3406-4FDC-B80B-D9A407283530}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB390C20-5186-4D08-AA61-24F2BA05D0E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB390C20-5186-4D08-AA61-24F2BA05D0E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB390C20-5186-4D08-AA61-24F2BA05D0E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB390C20-5186-4D08-AA61-24F2BA05D0E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
