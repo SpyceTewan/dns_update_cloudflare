@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace DnsUpdate;
 
@@ -10,12 +11,14 @@ public class IpQuery
 
     private const string CacheIpName = "lastip";
 
+    private readonly ILogger _logger;
     private readonly HttpClient _client;
     private readonly CacheManager _cache;
     public string? Ip { get; set; }
 
-    internal IpQuery(HttpClient client, CacheManager cacheManager)
+    internal IpQuery(ILogger logger, HttpClient client, CacheManager cacheManager)
     {
+        _logger = logger;
         _client = client;
         _cache = cacheManager;
     }
@@ -30,12 +33,12 @@ public class IpQuery
         var response = await _client.SendAsync(myIpMessage);
         if (response.StatusCode != HttpStatusCode.OK)
         {
-            Console.Error.WriteLine("Failed to get public IP. Code {0}", response.StatusCode);
+            _logger.Error("Failed to get public IP. Code {StatusCode}", response.StatusCode);
             return;
         }
 
         string ip = await response.Content.ReadAsStringAsync();
-        Console.WriteLine("Public IP: {0}", ip);
+        _logger.Information("Public IP: {Ip}", ip);
         
         Ip = ip;
     }

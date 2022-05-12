@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text.Json;
 using DnsUpdate.Model.Config;
+using Serilog;
 
 namespace DnsUpdate;
 
@@ -13,20 +14,22 @@ public static class Program
     /// <param name="dump">List the records and all metadata, like the ID</param>
     public static void Main(string config = "./config.json", bool force = false, bool dump = false)
     {
+        using var logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
+        Log.Logger = logger;
         Config? c = LoadConfig(config);
         if (c is null)
         {
-            Console.Error.WriteLine("Cannot load config found at '{0}'", Path.GetFullPath(config));
+            logger.Error("Cannot load config found at '{Location}'", Path.GetFullPath(config));
             return;
         }
 
         if (dump)
         {
-            new CloudflareDnsDumper(c).Execute().Wait();
+            new CloudflareDnsDumper(logger, c).Execute().Wait();
             return;
         }
 
-        new CloudflareDnsUpdater(c, force).Execute().Wait();
+        new CloudflareDnsUpdater(logger, c, force).Execute().Wait();
     }
 
     private static Config? LoadConfig(string path)
