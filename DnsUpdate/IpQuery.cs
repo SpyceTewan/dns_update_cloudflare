@@ -27,7 +27,7 @@ public class IpQuery
     {
         HttpRequestMessage myIpMessage = new HttpRequestMessage
         {
-            RequestUri = new Uri("https://diagnostic.opendns.com/myip")
+            RequestUri = new Uri("https://api.ipify.org")
         };
 
         var response = await _client.SendAsync(myIpMessage);
